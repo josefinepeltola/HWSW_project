@@ -15,11 +15,12 @@ class Alarmsystem {
     Sensor s2; 
     Camera c; 
     
-    bool valid(int);
-    bool intrusionCheck(int, int, int[9][9]); 
-    void alarmOn(); 
-    void controlloop(); 
     int spawnPin();
+    bool valid();
+    void alarmInactive();
+    void alarmActive(); 
+    void controlloop(); 
+    bool intrusionCheck(Sensor, Sensor, Camera);  
     void alarmTriggered(); 
-    // void deactivateAlarm();
+    // void deactivateAlarm()
 }; 

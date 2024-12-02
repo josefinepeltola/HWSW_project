@@ -3,14 +3,31 @@
 
 class Camera {
     private:
-    int** cameraData;
+    int cameraData[9][9];
     
     public: 
-    // int getCameraData(int i, int j) const { return cameraData[i][j]; }     // constructor 
-    Camera(int** cameraData) : cameraData(cameraData) {}
+    Camera() {  // Add default constructor
+        for(int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9; j++) {
+                cameraData[i][j] = 0;
+            }
+        }
+    }
 
-    int** generateCameraData(); 
-    // int* getData(); 
+    // Get single element at (i,j)
+    int getCameraData(int i, int j) { 
+        generateCameraData();
+        return cameraData[i][j]; 
+    }
+    
+    // Get pointer to first element (for accessing full matrix)
+    int* getMatrix() { 
+        generateCameraData();
+        return &cameraData[0][0]; 
+    }
+    
+    // Fill matrix with random values
+    void generateCameraData();
 }; 
 
 #endif

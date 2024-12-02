@@ -1,6 +1,11 @@
 #include "alarmsystem.h"
 
-bool Alarmsystem::valid(int) {
+int Alarmsystem::spawnPin() {
+    return Random::spawnNum() % 10; 
+}
+
+
+bool Alarmsystem::valid() {
     if (Alarmsystem::spawnPin() % 2) {
         std::cout << "** Pin correct **" << std::endl; 
         return true; 
@@ -11,33 +16,56 @@ bool Alarmsystem::valid(int) {
     }
 }
 
-bool Alarmsystem::intrusionCheck(int sensor1, int sensor2, int cam[9][9]) {
-    int sensorSum = sensor1 + sensor2; 
 
-    for (int i = 0; i < 9; i++) {    
-        for (int j = 0; j < 9; j++) { 
-            cam[i][j] = cam[i][j] * sensorSum; 
+void Alarmsystem::alarmInactive() {
+    alarmState = inactive;
+
+    while (alarmState == inactive) {
+        if (valid()) {
+            alarmActive(); 
         }
     }
 }
 
-void Alarmsystem::alarmOn() {}
+
+void Alarmsystem::alarmActive() {
+    alarmState = active;
+    controlloop(); 
+}
+
 
 void Alarmsystem::controlloop() {
-    while(alarmState == active) {
-        int s1Data = s1.generateSensorData(); 
-        int s2Data = s2.generateSensorData(); 
-        // int cData[9][9] = c.generateCameraData(); 
+    while (alarmState == active) {
+        s1.generateSensorData();
+        s2.generateSensorData();
+        c.generateCameraData();
 
-        // if (intrusionCheck(s1Data, s2Data, cData)) {
-        //     alarmTriggered(); 
-        // }
+        if (intrusionCheck(s1, s2, c)) {
+            alarmTriggered(); 
+        }
     }
 }
 
-int Alarmsystem::spawnPin() {
-    return Random::spawnNum() % 10; 
+
+bool Alarmsystem::intrusionCheck(Sensor sensor1, Sensor sensor2, Camera cam) {
+    int sensorSum = sensor1.generateSensorData() + sensor2.generateSensorData(); 
+    int sum = 0; 
+    for (int i = 0; i < 9; i++) {    
+        for (int j = 0; j < 9; j++) {  
+            int value = cam.getCameraData(i, j) * sensorSum;
+            sum = sum + value; 
+        }
+    }
+    if (sum >= 6290) {
+        std::cout << "** Intrusion Detected **" << std::endl; 
+        return true;    // Intrusion detected
+    }
+    else {
+        std::cout << "** Intrusion Not Detected **" << std::endl;
+        return false;   // No intrusion
+    }
 }
+
 
 void Alarmsystem::alarmTriggered() {
     alarmState = alarmed; 
@@ -48,23 +76,17 @@ void Alarmsystem::alarmTriggered() {
     long int timeRemaining = 10; 
     int pin = 0; 
 
-    while (timeRemaining > 0 && !valid(pin)) {
-        pin = spawnPin(); 
+    while (timeRemaining > 0 && !valid()) {
         time_t end = time(0); 
         long int timeUsed = end - start; 
         timeRemaining = 10 - timeUsed; 
 
-        if (valid(pin)) {
+        if (valid()) {
             std::cout << "** Valid pin. Alarm was reset... **" << std::endl; 
-            alarmState = active; 
-            controlloop(); 
-            return; 
+            alarmActive(); 
         } 
     }
     // Time elapsed 
     std::cout << "** Alarm was reset... **" << std::endl; 
-    alarmState = active; 
-    controlloop();
+    alarmActive(); 
 }
-
-// void Alarmsystem::deactivateAlarm() {}

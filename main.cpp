@@ -15,43 +15,30 @@
 
 
 int main() {
-    // Allocate 9x9 matrix
-    int** matrix = new int*[9];
-    for(int i = 0; i < 9; i++) {
-        matrix[i] = new int[9];
-    }
+    Camera cam;  // Uses default constructor
     
-    // Create camera with allocated matrix
-    Camera cam(matrix);
-    
-    // Generate and print first matrix
-    std::cout << "First matrix generation:" << std::endl;
-    matrix = cam.generateCameraData();
+    // First matrix
+    std::cout << "=== First Matrix ===" << std::endl;
+    // cam.generateCameraData();
     
     for(int i = 0; i < 9; i++) {
         for(int j = 0; j < 9; j++) {
-            std::cout << matrix[i][j] << " ";
+            std::cout << cam.getCameraData(i,j) << "  ";
         }
         std::cout << std::endl;
     }
     
-    
-    // Generate and print second matrix
-    std::cout << "\nSecond matrix generation:" << std::endl;
-    matrix = cam.generateCameraData();
+    // Second matrix after brief delay
+    // sleep(1);  // Wait 1 second for different random seed
+    std::cout << "\n=== Second Matrix ===" << std::endl;
+    // cam.generateCameraData();
     
     for(int i = 0; i < 9; i++) {
         for(int j = 0; j < 9; j++) {
-            std::cout << matrix[i][j] << " ";
+            std::cout << cam.getCameraData(i,j) << "  ";
         }
         std::cout << std::endl;
     }
-    
-    // Cleanup
-    for(int i = 0; i < 9; i++) {
-        delete[] matrix[i];
-    }
-    delete[] matrix;
 
     return 0;
 }

@@ -6,6 +6,6 @@
 // } 
 
 int Sensor::generateSensorData() {
-    int data = Random::spawnNum() % 6;
-    return data; 
+    sensorInput = Random::spawnNum() % 6;
+    return sensorInput; 
 } 

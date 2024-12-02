@@ -6,7 +6,7 @@ class Sensor {
     int sensorInput; 
     
     public:
-    Sensor() {}     // constructor 
+    Sensor() : sensorInput(0) {}     // constructor 
 
     int generateSensorData(); 
     // int getData(); 
