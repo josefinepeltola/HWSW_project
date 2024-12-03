@@ -3,6 +3,7 @@
 #include "sensor.h"
 #include "camera.h"
 #include "random.h"
+#include <unistd.h> 
 
 class Alarmsystem {
     enum state {inactive, active, alarmed};   
@@ -14,6 +15,8 @@ class Alarmsystem {
     Sensor s1;
     Sensor s2; 
     Camera c; 
+
+    Alarmsystem() : alarmState(inactive) {} 
     
     int spawnPin();
     bool valid();

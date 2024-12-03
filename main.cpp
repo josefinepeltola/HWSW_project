@@ -1,44 +1,39 @@
 #include <iostream>
-// #include "random.h"
+#include <unistd.h> // for sleep function
 #include "alarmsystem.h"
 
-// int main() {
-//     Sensor sensor;
-    
-//     std::cout << "Generating 10 sensor readings:" << std::endl;
-//     for(int i = 0; i < 10; i++) {
-//         std::cout << "Reading " << i << ": " << sensor.generateSensorData() << std::endl;
-//     }
-
-//     return 0;
-// }
-
-
 int main() {
-    Camera cam;  // Uses default constructor
+    std::cout << "=== Testing Alarm System ===" << std::endl;
     
-    // First matrix
-    std::cout << "=== First Matrix ===" << std::endl;
-    // cam.generateCameraData();
-    
-    for(int i = 0; i < 9; i++) {
-        for(int j = 0; j < 9; j++) {
-            std::cout << cam.getCameraData(i,j) << "  ";
-        }
-        std::cout << std::endl;
-    }
-    
-    // Second matrix after brief delay
-    // sleep(1);  // Wait 1 second for different random seed
-    std::cout << "\n=== Second Matrix ===" << std::endl;
-    // cam.generateCameraData();
-    
-    for(int i = 0; i < 9; i++) {
-        for(int j = 0; j < 9; j++) {
-            std::cout << cam.getCameraData(i,j) << "  ";
-        }
-        std::cout << std::endl;
-    }
+    Alarmsystem alarm;
 
+    alarm.alarmInactive(); 
+    
+    // // Test pin validation
+    // std::cout << "\nTesting PIN validation:" << std::endl;
+    // for(int i = 0; i < 3; i++) {
+    //     std::cout << "Attempt " << i+1 << ": ";
+    //     if (alarm.valid())
+    //     alarm.valid();
+    //     sleep(1);
+    // }
+    
+    // // Test intrusion detection
+    // std::cout << "\nTesting intrusion detection:" << std::endl;
+    // for(int i = 0; i < 3; i++) {
+    //     std::cout << "Test " << i+1 << ": ";
+    //     bool result = alarm.intrusionCheck(alarm.s1, alarm.s2, alarm.c);
+    //     std::cout << "Intrusion detected: " << (result ? "Yes" : "No") << std::endl;
+    //     sleep(1);
+    // }
+    
+    // // Test full alarm system flow
+    // std::cout << "\nTesting full alarm system flow:" << std::endl;
+    // std::cout << "Starting in inactive state..." << std::endl;
+    // sleep(1);
+    
+    // // This will start the alarm system state machine
+    // alarm.alarmInactive();
+    
     return 0;
 }

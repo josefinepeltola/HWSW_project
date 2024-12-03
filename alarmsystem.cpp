@@ -19,9 +19,11 @@ bool Alarmsystem::valid() {
 
 void Alarmsystem::alarmInactive() {
     alarmState = inactive;
+    std::cout << "=== Powering alarmsystem on... ===" << std::endl;
 
     while (alarmState == inactive) {
         if (valid()) {
+            std::cout << "** Pin corret. Alarm active **" << std::endl;
             alarmActive(); 
         }
     }
@@ -40,29 +42,11 @@ void Alarmsystem::controlloop() {
         s2.generateSensorData();
         c.generateCameraData();
 
+        sleep(1); 
+
         if (intrusionCheck(s1, s2, c)) {
             alarmTriggered(); 
         }
-    }
-}
-
-
-bool Alarmsystem::intrusionCheck(Sensor sensor1, Sensor sensor2, Camera cam) {
-    int sensorSum = sensor1.generateSensorData() + sensor2.generateSensorData(); 
-    int sum = 0; 
-    for (int i = 0; i < 9; i++) {    
-        for (int j = 0; j < 9; j++) {  
-            int value = cam.getCameraData(i, j) * sensorSum;
-            sum = sum + value; 
-        }
-    }
-    if (sum >= 6290) {
-        std::cout << "** Intrusion Detected **" << std::endl; 
-        return true;    // Intrusion detected
-    }
-    else {
-        std::cout << "** Intrusion Not Detected **" << std::endl;
-        return false;   // No intrusion
     }
 }
 
@@ -82,11 +66,11 @@ void Alarmsystem::alarmTriggered() {
         timeRemaining = 10 - timeUsed; 
 
         if (valid()) {
-            std::cout << "** Valid pin. Alarm was reset... **" << std::endl; 
+            std::cout << "=== Alarm was reset... ===\n\n" << std::endl; 
             alarmActive(); 
         } 
     }
     // Time elapsed 
-    std::cout << "** Alarm was reset... **" << std::endl; 
+    std::cout << "=== Alarm was reset... ===\n\n" << std::endl; 
     alarmActive(); 
 }
