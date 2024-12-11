@@ -1,15 +1,16 @@
 #ifndef _SENSOR_H
 #define _SENSOR_H
 
-class Sensor {
-    private:
-    int sensorInput; 
-    
-    public:
-    Sensor() : sensorInput(0) {}     // constructor 
+extern "C" {
+    class Sensor {
+        private:
+        int sensorInput; 
+        
+        public:
+        Sensor() : sensorInput(0) {}     // constructor 
 
-    int generateSensorData(); 
-    // int getData(); 
-}; 
-
+        int generateSensorData(); 
+        // int getData(); 
+    }; 
+}
 #endif

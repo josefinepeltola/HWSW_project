@@ -2,12 +2,13 @@
 #define _RANDOM_H
 #include <ctime> 
 
-class Random {
-    private:
-    static unsigned long next;
-    
-    public:
-    static int spawnNum(); 
-};
-
+extern "C" {
+    class Random {
+        private:
+        static unsigned long next;
+        
+        public:
+        static int spawnNum(); 
+    };
+}
 #endif
