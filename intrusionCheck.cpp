@@ -11,7 +11,7 @@ bool Alarmsystem::intrusionCheck(Sensor sensor1, Sensor sensor2, Camera cam) {
             sum = sum + value; 
         }
     }
-    if (sum >= 600) {
+    if (sum >= 6290) {
         std::cout << "** Intrusion Detected **" << std::endl; 
         return true;    // Intrusion detected
     }

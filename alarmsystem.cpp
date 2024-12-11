@@ -42,7 +42,7 @@ void Alarmsystem::controlloop() {
         s2.generateSensorData();
         c.generateCameraData();
 
-        sleep(1); 
+        // sleep(2); 
 
         if (intrusionCheck(s1, s2, c)) {
             alarmTriggered(); 

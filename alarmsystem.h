@@ -3,7 +3,6 @@
 #include "sensor.h"
 #include "camera.h"
 #include "random.h"
-#include <unistd.h> 
 
 class Alarmsystem {
     enum state {inactive, active, alarmed};   
