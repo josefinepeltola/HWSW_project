@@ -79,7 +79,6 @@
 
 #include "alarmsystem.h"
 #include <stdio.h>
-#include<unistd.h>
 
 void initAlarmSystem(struct AlarmSystem* alarm) {
     alarm->alarmState = inactive;
@@ -125,7 +124,7 @@ void controlLoop(struct AlarmSystem* alarm) {
         generateSensorData(&alarm->s2);
         generateCameraData(&alarm->c);
 
-        sleep(2);
+        // sleep(2);
 
         if (intrusionCheck(&alarm->s1, &alarm->s2, &alarm->c)) {
             alarmTriggered(alarm);
