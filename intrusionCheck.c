@@ -35,15 +35,14 @@ int intrusionCheck(struct Sensor* s1, struct Sensor* s2, struct Camera* c) {
             int value = getCameraData(c, i, j) * sensorSum;
             sum += value;
             // printf("sum is", sum);
+            if (sum >= 6290) {
+                printf("** Intrusion Detected **\n");
+                return 1; // Intrusion detected
+            }
         }
-    }
-    if (sum >= 6290) {
-        printf("** Intrusion Detected **\n");
-        return 1; // Intrusion detected
-    } else {
-        // printf("%d", sum);
-        printf("** Intrusion Not Detected **\n");
-        return 0; // No intrusion
-    }
+    } 
+    // printf("%d", sum);
+    printf("** Intrusion Not Detected **\n");
+    return 0; // No intrusion
 }
 
