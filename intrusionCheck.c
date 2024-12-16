@@ -27,7 +27,7 @@
 #include "alarmsystem.h"
 #include <stdio.h>
 
-
+// Almost correct verison
 //     for (int i = 0; i < 9; i++) {
 //         for (int j = 0; j < 9; j++) {
 //             int value = getCameraData(c, i, j) * sensorSum;
@@ -59,8 +59,13 @@ for (int i = 0; i < 9; i++) {
     for (int j = 0; j < 9; j++) {
         int value = camBuffer[i][j] * sensorSum;
         sum += value;
+        if (sum >= 2000) {
+                printf("** Intrusion Detected **\n");
+                return 1; // Intrusion detected
+            }
     }
 }
-
+printf("** Intrusion not detected **\n");
+return 0;
 }
 
