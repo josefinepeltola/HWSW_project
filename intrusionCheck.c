@@ -28,39 +28,43 @@
 #include <stdio.h>
 
 
-//     for (int i = 0; i < 9; i++) {
-//         for (int j = 0; j < 9; j++) {
-//             int value = getCameraData(c, i, j) * sensorSum;
-//             sum += value;
-//             // printf("sum is", sum);
-//             if (sum >= 6290) {
-//                 printf("** Intrusion Detected **\n");
-//                 return 1; // Intrusion detected
-//             }
-//         }
-//     } 
-//     // printf("%d", sum);
-//     printf("** Intrusion Not Detected **\n");
-//     return 0; // No intrusion
+int intrusionCheck(struct Sensor* s1, struct Sensor* s2, struct Camera* c) {
+int sum = 0;
+int sensorSum = generateSensorData(s1) + generateSensorData(s2); 
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            int value = getCameraData(c, i, j) * sensorSum;
+            sum += value;
+            // printf("sum is", sum);
+            if (sum >= 6290) {
+                printf("** Intrusion Detected **\n");
+                return 1; // Intrusion detected
+            }
+        }
+    } 
+    // printf("%d", sum);
+    printf("** Intrusion Not Detected **\n");
+    return 0; // No intrusion
+}
+
+// int intrusionCheck(struct Sensor* s1, struct Sensor* s2, struct Camera* c) {
+//     int sensorSum = getSensorData(s1) + getSensorData(s2);
+//     // int sensorSum = generateSensorData(s1) + generateSensorData(s2); 
+//     int sum = 0;
+
+// int camBuffer[9][9];
+// for (int i = 0; i < 9; i++) {
+//     for (int j = 0; j < 9; j++) {
+//         camBuffer[i][j] = getCameraData(c, i, j);
+//     }
 // }
 
-int intrusionCheck(struct Sensor* s1, struct Sensor* s2, struct Camera* c) {
-    int sensorSum = generateSensorData(s1) + generateSensorData(s2);
-    int sum = 0;
+// for (int i = 0; i < 9; i++) {
+//     for (int j = 0; j < 9; j++) {
+//         int value = camBuffer[i][j] * sensorSum;
+//         sum += value;
+//     }
+// }
 
-int camBuffer[9][9];
-for (int i = 0; i < 9; i++) {
-    for (int j = 0; j < 9; j++) {
-        camBuffer[i][j] = getCameraData(c, i, j);
-    }
-}
-
-for (int i = 0; i < 9; i++) {
-    for (int j = 0; j < 9; j++) {
-        int value = camBuffer[i][j] * sensorSum;
-        sum += value;
-    }
-}
-
-}
+// }
 

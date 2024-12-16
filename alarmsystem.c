@@ -120,9 +120,12 @@ void alarmActive(struct AlarmSystem* alarm) {
 
 void controlLoop(struct AlarmSystem* alarm) {
     while (alarm->alarmState == active) {
-        generateSensorData(&alarm->s1);
-        generateSensorData(&alarm->s2);
-        generateCameraData(&alarm->c);
+        // generateSensorData(&alarm->s1);
+        // generateSensorData(&alarm->s2);
+        // generateCameraData(&alarm->c);
+    //    int sensor1 = generateSensorData(&alarm->s1);
+    //    int sensor2 = generateSensorData(&alarm->s2);
+
 
         // sleep(2);
 
