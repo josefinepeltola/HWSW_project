@@ -7,5 +7,6 @@ struct Sensor {
 
     void initSensor(struct Sensor* sensor);
     int generateSensorData(struct Sensor* sensor);
+    int getSensorData(struct Sensor* sensor);
 
 #endif
